@@ -3,13 +3,14 @@ import React from "react"
 type SelectorProps = {
     value: number,
     valueOptions: number[],
-    callback: Function
+    callback: Function,
+    suffix?: string
 }
-const Selector = ({ value, valueOptions, callback }: SelectorProps) => {
+const Selector = ({ value, valueOptions, callback, suffix }: SelectorProps) => {
     return (
         <select onChange={(e) => { callback(e.target.value) }}>
             {valueOptions.map((val) => {
-                return <option key={val} defaultValue={value} value={val}>{val}%</option>
+                return <option key={val} defaultValue={value} value={val}>{val}{suffix}</option>
             })}
         </select>
     )
