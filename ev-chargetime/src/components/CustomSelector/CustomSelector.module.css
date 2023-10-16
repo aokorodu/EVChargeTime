@@ -1,0 +1,16 @@
+.holder {
+  position: relative;
+  width: fit-content;
+  min-width: 200px;
+  background-color: white;
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.dropdownHolder {
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+}

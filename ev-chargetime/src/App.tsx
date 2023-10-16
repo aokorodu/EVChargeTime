@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Selector from './components/Selector';
+import CustomSelector from './components/CustomSelector';
 
 function App() {
   const chargeCurve = [2.36, 2.07, 2.07, 2.07, 2.53, 2.85, 3.3, 18]
@@ -69,13 +70,13 @@ function App() {
     <>
       <div className='controls'>
         <div>
-          <label>Start Charge </label>
-          <Selector value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' />
+          {/* <Selector label="Start Charge" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' /> */}
+          <CustomSelector label="Start Charge" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' />
         </div>
 
         <div>
-          <label>End Charge </label>
-          <Selector value={80} valueOptions={[80, 100]} callback={changeEnd} suffix='%' />
+          {/* <Selector label='End Charge' value={80} valueOptions={[80, 100]} callback={changeEnd} suffix='%' /> */}
+          <CustomSelector label='End Charge' value={80} valueOptions={[80, 100]} callback={changeEnd} suffix='%' />
         </div>
         <hr />
         <div>Max Range on a 100% charge: <input value={String(range)} onChange={(e) => { setRange(Number(e.target.value)) }} /></div>

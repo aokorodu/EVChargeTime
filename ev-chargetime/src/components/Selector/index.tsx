@@ -1,18 +1,22 @@
 import React from "react"
 
 type SelectorProps = {
+    label?: string,
     value: number,
     valueOptions: number[],
     callback: Function,
     suffix?: string
 }
-const Selector = ({ value, valueOptions, callback, suffix }: SelectorProps) => {
+const Selector = ({ label, value, valueOptions, callback, suffix }: SelectorProps) => {
     return (
-        <select onChange={(e) => { callback(e.target.value) }}>
-            {valueOptions.map((val) => {
-                return <option key={val} defaultValue={value} value={val}>{val}{suffix}</option>
-            })}
-        </select>
+        <>
+            {label && <div>{label}</div>}
+            <select onChange={(e) => { callback(e.target.value) }}>
+                {valueOptions.map((val) => {
+                    return <option key={val} defaultValue={value} value={val}>{val}{suffix}</option>
+                })}
+            </select>
+        </>
     )
 }
 
