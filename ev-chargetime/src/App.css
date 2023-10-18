@@ -8,7 +8,35 @@
 }
 
 .controls {
-  border: 1px solid black;
   padding: 1rem;
-  width: 100%;
+  padding: 1rem;
+}
+
+.chargeLevelControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dynamicNumbers,
+.resultNumbers {
+  background-color: #eaeaea;
+  padding: 1rem;
+  width: fit-content;
+}
+
+.inputStuff,
+.dataStuff {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin: 0.5rem 0;
+  justify-content: space-between;
+}
+
+input {
+  max-width: 50px;
+  text-align: left;
 }

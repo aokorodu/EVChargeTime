@@ -64,56 +64,58 @@ function App() {
   const getTotalTimeSpentCharging = (): number => {
     const num = getNumberOfChargingSessions();
     const time = num * totalTimePer;
-    return time;
+    return Math.round(time);
   }
   return (
     <>
       <div className='controls'>
-        <div>
-          {/* <Selector label="Start Charge" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' /> */}
+        <div className='chargeLevelControls'>
           <CustomSelector label="Start Charge" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' />
-        </div>
 
-        <div>
-          {/* <Selector label='End Charge' value={80} valueOptions={[80, 100]} callback={changeEnd} suffix='%' /> */}
           <CustomSelector label='End Charge' value={80} valueOptions={[80, 100]} callback={changeEnd} suffix='%' />
         </div>
-        <hr />
-        <div>Max Range on a 100% charge: <input value={String(range)} onChange={(e) => { setRange(Number(e.target.value)) }} /></div>
-        <div>Range between start and end: {Math.round((endcharge - startcharge) / 100 * Number(range))}</div>
-        <hr />
-        <div>
-          <label>Average Drive time to charger (in minutes)</label>
-          <input value={driveTime} onChange={(e) => { setDriveTime(Number(e.target.value)) }}></input>
+        <div className='dynamicNumbers'>
+
+          <div className='inputStuff'>Max Range on a 100% charge: <input value={String(range)} onChange={(e) => { setRange(Number(e.target.value)) }} /></div>
+
+          <div className='inputStuff'>Average Drive time to charger (in minutes)
+            <input value={driveTime} onChange={(e) => { setDriveTime(Number(e.target.value)) }}></input>
+          </div>
+
+          <div className='inputStuff'>Average wait time to use charger (in minutes)
+            <Selector value={0} valueOptions={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]} callback={waitEnd} />
+          </div>
+          <div className='inputStuff'>Test Distance
+            <input value={testDistance} onChange={(e) => { setTestDistance(Number(e.target.value)) }}></input></div>
+
         </div>
 
-        <div>
-          <label>Average wait time to use charger (in minutes)</label>
-          <Selector value={0} valueOptions={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]} callback={waitEnd} />
+
+
+        <div className='resultNumbers'>
+          <div className='dataStuff'>
+            <div>Range between start and end:</div>
+            <div>{Math.round((endcharge - startcharge) / 100 * Number(range))}</div>
+          </div>
+          <div className='dataStuff'>
+            <div>Total non-charging time: </div>
+            <div>{driveTime + waitTime}</div>
+          </div>
+          <div className='dataStuff'>
+            <div>Total time per charge: </div>
+            <div>{Math.round(totalTimePer)}</div>
+          </div>
+          <div className='dataStuff'>
+            <div>Number of charging stops to cover test distance:</div>
+            <div>{getNumberOfChargingSessions()}</div>
+          </div>
+          <div className='dataStuff'>
+            <label>Total time spent charging</label>
+            <div>{getTotalTimeSpentCharging()}</div>
+          </div>
         </div>
 
-        <div>
-          <div>Total non-charging time: {driveTime + waitTime}</div>
-        </div>
 
-
-
-        <hr />
-        <div>Total time per charge: {totalTimePer}</div>
-
-        <hr />
-        <div>
-          <label>Test Distance</label>
-          <input value={testDistance} onChange={(e) => { setTestDistance(Number(e.target.value)) }}></input>
-          <div>Number of charging stops to cover test distance:{getNumberOfChargingSessions()}</div>
-        </div>
-
-        <hr />
-        <div>
-          <label>Total time spent charging</label>
-
-          <div>{getTotalTimeSpentCharging()}</div>
-        </div>
       </div>
 
 
