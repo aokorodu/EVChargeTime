@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
+:root {
+  --borderRadius: 5px;
+}
 * {
-  font-family: "Kanit", sans-serif;
   box-sizing: border-box;
 }
 .App {
@@ -30,6 +32,7 @@
   width: 90%;
   max-width: 500px;
   margin-top: 0.25rem;
+  border-radius: var(--borderRadius);
 }
 
 .inputStuff,
@@ -46,7 +49,7 @@ input {
   font-size: 1rem;
   color: black;
   border: 1px solid #c1c1c1;
-  border-radius: 5px;
+  border-radius: var(--borderRadius);
   padding: 0.25rem;
   width: 100px;
 }
@@ -54,7 +57,7 @@ input {
 select {
   font-size: 1rem;
   border: 1px solid #c1c1c1;
-  border-radius: 5px;
+  border-radius: var(--borderRadius);
   padding: 0.25rem;
   width: 100px;
 }
@@ -62,4 +65,33 @@ select {
 .bold {
   font-weight: 500;
   font-size: 1.22rem;
+}
+
+.chartHolder {
+  width: 100%;
+  max-width: 500px;
+  height: 500px;
+  margin-top: 0.25rem;
+  border-radius: var(--borderRadius);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+}
+th {
+  border-bottom: 1px solid black;
+  text-align: right;
+}
+td:first-child {
+  width: 300px;
+  text-align: left;
+}
+td {
+  text-align: right;
+}
+
+tr:last-child {
+  font-size: 1.25rem;
+  font-weight: 600;
 }

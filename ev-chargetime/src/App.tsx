@@ -2,24 +2,27 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import Selector from './components/Selector';
 import CustomSelector from './components/CustomSelector';
+import Chart from './components/Chart';
 
 function App() {
   const chargeCurve = [2.36, 2.07, 2.07, 2.07, 2.53, 2.85, 3.3, 18]
   const defaultRange: Number = 285;
+
   const [startcharge, setStartCharge] = useState(10);
-  const [endcharge, setEndCharge] = useState(80);
+  //const [endcharge, setEndCharge] = useState(80);
   const [range, setRange] = useState(defaultRange);
   const [driveTime, setDriveTime] = useState(0);
   const [waitTime, setWaitTime] = useState(0);
-  const [totalTimePer, setTotalTimePer] = useState(0);
+  const [totalTimePerFull, setTotalTimePerFull] = useState(0);
+  const [totalTimePerNotFull, setTotalTimePerNotFull] = useState(0);
   const [testDistance, setTestDistance] = useState(1000)
 
   useEffect(() => {
     recalculate();
-  }, [startcharge, endcharge, range, driveTime, waitTime, testDistance])
+  }, [startcharge, range, driveTime, waitTime, testDistance])
 
 
-  const calculateTime = () => {
+  const calculateTime = (endcharge: number) => {
 
     const chargeTime = getChargingTime(startcharge, endcharge);
     const totalTime = chargeTime + driveTime + waitTime;
@@ -28,15 +31,12 @@ function App() {
   }
 
   const recalculate = () => {
-    setTotalTimePer(calculateTime())
+    setTotalTimePerNotFull(calculateTime(80));
+    setTotalTimePerFull(calculateTime(100))
   }
   const changeStart = (e: String) => {
     const num = Number(e);
     setStartCharge(num);
-  }
-
-  const changeEnd = (e: String) => {
-    setEndCharge(Number(e));
   }
 
   const waitEnd = (e: String) => {
@@ -56,15 +56,16 @@ function App() {
     return Math.round(sum)
   }
 
-  const getNumberOfChargingSessions = (): number => {
+  const getNumberOfChargingSessions = (endcharge: number): number => {
     const dist = Math.round((endcharge - startcharge) / 100 * Number(range));
     const num = Math.ceil(testDistance / dist);
 
     return num;
   }
 
-  const getTotalTimeSpentCharging = (): string => {
-    const num = getNumberOfChargingSessions();
+  const getTotalTimeSpentCharging = (endcharge: number): string => {
+    const num = getNumberOfChargingSessions(endcharge);
+    const totalTimePer = endcharge == 80 ? totalTimePerNotFull : totalTimePerFull;
     const totalMinutes = Math.round(num * totalTimePer);
 
     const str = getTimeString(totalMinutes)
@@ -84,8 +85,6 @@ function App() {
       <div className='controls'>
         <div className='chargeLevelControls'>
           <CustomSelector label="Start Charge" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' />
-
-          <CustomSelector label='End Charge' value={80} valueOptions={[80, 100]} callback={changeEnd} suffix='%' />
         </div>
         <div className='dynamicNumbers'>
 
@@ -106,36 +105,89 @@ function App() {
 
 
         <div className='resultNumbers'>
-          <div className='dataStuff'>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th>80%</th>
+                <th>100%</th>
+              </tr>
+            </thead>
+            <tr>
+              <td>Range between start and end:</td>
+              <td>{Math.round((80 - startcharge) / 100 * Number(range))}</td>
+              <td>{Math.round((100 - startcharge) / 100 * Number(range))}</td>
+            </tr>
+
+            <tr>
+              <td>Total non-charging time:</td>
+              <td>{getTimeString(driveTime + waitTime)}</td>
+              <td>{getTimeString(driveTime + waitTime)}</td>
+            </tr>
+
+            <tr>
+              <td>Total charging time: </td>
+              <td>{getTimeString(getChargingTime(startcharge, 80))}</td>
+              <td>{getTimeString(getChargingTime(startcharge, 100))}</td>
+            </tr>
+
+            <tr>
+              <td>Total time per charge: </td>
+              <td>{getTimeString(totalTimePerNotFull)}</td>
+              <td>{getTimeString(totalTimePerFull)}</td>
+            </tr>
+
+            <tr>
+              <td># of charging stops:</td>
+              <td>{getNumberOfChargingSessions(80)}</td>
+              <td>{getNumberOfChargingSessions(100)}</td>
+            </tr>
+
+            <tr>
+              <td>Total time spent charging</td>
+              <td>{getTotalTimeSpentCharging(80)}</td>
+              <td>{getTotalTimeSpentCharging(100)}</td>
+            </tr>
+
+          </table>
+          {/* <div className='dataStuff'>
             <div>Range between start and end:</div>
-            <div>{Math.round((endcharge - startcharge) / 100 * Number(range))}</div>
-          </div>
-          <div className='dataStuff'>
+            <div>{Math.round((80 - startcharge) / 100 * Number(range))}</div>
+            <div>{Math.round((100 - startcharge) / 100 * Number(range))}</div>
+          </div> */}
+          {/* <div className='dataStuff'>
             <div>Total non-charging time: </div>
             <div>{getTimeString(driveTime + waitTime)}</div>
-          </div>
-          <div className='dataStuff'>
+          </div> */}
+          {/* <div className='dataStuff'>
             <div>Total charging time: </div>
-            <div>{getTimeString(getChargingTime(startcharge, endcharge))}</div>
-          </div>
-          <div className='dataStuff'>
+            <div>{getTimeString(getChargingTime(startcharge, 80))}</div>
+            <div>{getTimeString(getChargingTime(startcharge, 100))}</div>
+          </div> */}
+          {/* <div className='dataStuff'>
             <div>Total time per charge: </div>
-            <div>{getTimeString(totalTimePer)}</div>
-          </div>
-          <div className='dataStuff'>
+            <div>{getTimeString(totalTimePerNotFull)}</div>
+            <div>{getTimeString(totalTimePerFull)}</div>
+          </div> */}
+          {/* <div className='dataStuff'>
             <div>Number of charging stops to cover test distance:</div>
-            <div>{getNumberOfChargingSessions()}</div>
-          </div>
+            <div>{getNumberOfChargingSessions(80)}</div>
+            <div>{getNumberOfChargingSessions(100)}</div>
+          </div> */}
 
         </div>
 
-        <div className='resultNumbers'><div className='dataStuff bold'>
+        {/* <div className='resultNumbers'><div className='dataStuff bold'>
           <div>Total time spent charging</div>
-          <div>{getTotalTimeSpentCharging()}</div>
-        </div></div>
+          <div>{getTotalTimeSpentCharging(80)}</div>
+          <div>{getTotalTimeSpentCharging(100)}</div>
+        </div></div> */}
 
-
+        <div className='chartHolder'>
+          {/* <Chart /> */}
+        </div>
       </div>
+
 
 
     </>
