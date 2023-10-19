@@ -118,9 +118,6 @@ function App() {
             <div>Total charging time: </div>
             <div>{getTimeString(getChargingTime(startcharge, endcharge))}</div>
           </div>
-
-
-
           <div className='dataStuff'>
             <div>Total time per charge: </div>
             <div>{getTimeString(totalTimePer)}</div>
@@ -129,11 +126,13 @@ function App() {
             <div>Number of charging stops to cover test distance:</div>
             <div>{getNumberOfChargingSessions()}</div>
           </div>
-          <div className='dataStuff'>
-            <label>Total time spent charging</label>
-            <div>{getTotalTimeSpentCharging()}</div>
-          </div>
+
         </div>
+
+        <div className='resultNumbers'><div className='dataStuff bold'>
+          <div>Total time spent charging</div>
+          <div>{getTotalTimeSpentCharging()}</div>
+        </div></div>
 
 
       </div>

@@ -29,6 +29,7 @@
   padding: 1rem;
   width: 90%;
   max-width: 500px;
+  margin-top: 0.25rem;
 }
 
 .inputStuff,
@@ -56,4 +57,9 @@ select {
   border-radius: 5px;
   padding: 0.25rem;
   width: 100px;
+}
+
+.bold {
+  font-weight: 500;
+  font-size: 1.22rem;
 }
