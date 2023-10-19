@@ -18,10 +18,10 @@ function App() {
     recalculate();
   }, [startcharge, endcharge, range, driveTime, waitTime, testDistance])
 
+
   const calculateTime = () => {
-    const startIndex = (startcharge / 10) - 1;
-    const endIndex = (endcharge / 10 - 2);
-    const chargeTime = getChargingTime(startIndex, endIndex);
+
+    const chargeTime = getChargingTime(startcharge, endcharge);
     const totalTime = chargeTime + driveTime + waitTime;
 
     return totalTime;
@@ -43,9 +43,11 @@ function App() {
     setWaitTime(Number(e))
   }
 
-  const getChargingTime = (start: number, end: number): number => {
+  const getChargingTime = (startcharge: number, endcharge: number): number => {
+    const startIndex = (startcharge / 10) - 1;
+    const endIndex = (endcharge / 10 - 2);
     let sum = 0;
-    for (let i = start; i <= end; i++) {
+    for (let i = startIndex; i <= endIndex; i++) {
       const current = chargeCurve[i];
       console.log('current: ', current)
       if (current) sum += current;
@@ -71,6 +73,15 @@ function App() {
     const str = `${hours}:${minutes}`;
     console.log('total minutes: ', totalMinutes);
     console.log('total time: ', str);
+
+    return str;
+  }
+
+  const getTimeString = (min: number): string => {
+    const hours = Math.floor(min / 60);
+    let minutes = String(min % 60);
+    if (minutes.length == 1) minutes = `0${minutes}`;
+    const str = `${hours}:${minutes}`;
 
     return str;
   }
@@ -109,6 +120,13 @@ function App() {
             <div>Total non-charging time: </div>
             <div>{driveTime + waitTime}</div>
           </div>
+          <div className='dataStuff'>
+            <div>Total charging time: </div>
+            <div>{getChargingTime(startcharge, endcharge)}</div>
+          </div>
+
+
+
           <div className='dataStuff'>
             <div>Total time per charge: </div>
             <div>{Math.round(totalTimePer)}</div>
