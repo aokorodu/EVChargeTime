@@ -53,7 +53,7 @@ function App() {
       if (current) sum += current;
     }
 
-    return sum
+    return Math.round(sum)
   }
 
   const getNumberOfChargingSessions = (): number => {
@@ -66,14 +66,8 @@ function App() {
   const getTotalTimeSpentCharging = (): string => {
     const num = getNumberOfChargingSessions();
     const totalMinutes = Math.round(num * totalTimePer);
-    const hours = Math.floor(totalMinutes / 60);
-    let minutes = String(totalMinutes % 60);
-    if (minutes.length == 1) minutes = `0${minutes}`
 
-    const str = `${hours}:${minutes}`;
-    console.log('total minutes: ', totalMinutes);
-    console.log('total time: ', str);
-
+    const str = getTimeString(totalMinutes)
     return str;
   }
 
@@ -118,18 +112,18 @@ function App() {
           </div>
           <div className='dataStuff'>
             <div>Total non-charging time: </div>
-            <div>{driveTime + waitTime}</div>
+            <div>{getTimeString(driveTime + waitTime)}</div>
           </div>
           <div className='dataStuff'>
             <div>Total charging time: </div>
-            <div>{getChargingTime(startcharge, endcharge)}</div>
+            <div>{getTimeString(getChargingTime(startcharge, endcharge))}</div>
           </div>
 
 
 
           <div className='dataStuff'>
             <div>Total time per charge: </div>
-            <div>{Math.round(totalTimePer)}</div>
+            <div>{getTimeString(totalTimePer)}</div>
           </div>
           <div className='dataStuff'>
             <div>Number of charging stops to cover test distance:</div>
