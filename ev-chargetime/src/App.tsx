@@ -9,7 +9,6 @@ function App() {
   const defaultRange: Number = 285;
 
   const [startcharge, setStartCharge] = useState(10);
-  //const [endcharge, setEndCharge] = useState(80);
   const [range, setRange] = useState(defaultRange);
   const [driveTime, setDriveTime] = useState(0);
   const [waitTime, setWaitTime] = useState(0);
@@ -49,7 +48,6 @@ function App() {
     let sum = 0;
     for (let i = startIndex; i <= endIndex; i++) {
       const current = chargeCurve[i];
-      console.log('current: ', current)
       if (current) sum += current;
     }
 
@@ -63,11 +61,17 @@ function App() {
     return num;
   }
 
-  const getTotalTimeSpentCharging = (endcharge: number): string => {
+  const getTotalTimeSpentChargingNumber = (endcharge: number): number => {
     const num = getNumberOfChargingSessions(endcharge);
     const totalTimePer = endcharge == 80 ? totalTimePerNotFull : totalTimePerFull;
     const totalMinutes = Math.round(num * totalTimePer);
 
+    return totalMinutes
+  }
+
+  const getTotalTimeSpentCharging = (endcharge: number): string => {
+
+    const totalMinutes = getTotalTimeSpentChargingNumber(endcharge)
     const str = getTimeString(totalMinutes)
     return str;
   }
@@ -80,6 +84,26 @@ function App() {
 
     return str;
   }
+
+  const getChartData = () => {
+    const obj = {
+      timeNotFull: getTotalTimeSpentChargingNumber(80),
+      rangeNotFull: getRange(80),
+      stopsNotFull: getNumberOfChargingSessions(80),
+      timeFull: getTotalTimeSpentChargingNumber(100),
+      rangeFull: getRange(100),
+      stopsFull: getNumberOfChargingSessions(100),
+      distance: testDistance
+    }
+
+    return obj;
+  }
+
+  const getRange = (charge: number) => {
+    return Math.round((charge - startcharge) / 100 * Number(range))
+  }
+
+
   return (
     <>
       <div className='controls'>
@@ -115,8 +139,8 @@ function App() {
             </thead>
             <tr>
               <td>Range between start and end:</td>
-              <td>{Math.round((80 - startcharge) / 100 * Number(range))}</td>
-              <td>{Math.round((100 - startcharge) / 100 * Number(range))}</td>
+              <td>{getRange(80)}</td>
+              <td>{getRange(100)}</td>
             </tr>
 
             <tr>
@@ -184,7 +208,7 @@ function App() {
         </div></div> */}
 
         <div className='chartHolder'>
-          {/* <Chart /> */}
+          <Chart {...getChartData()} />
         </div>
       </div>
 
