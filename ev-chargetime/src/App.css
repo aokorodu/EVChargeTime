@@ -18,13 +18,16 @@
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
 }
 
 .dynamicNumbers,
 .resultNumbers {
   background-color: #eaeaea;
   padding: 1rem;
-  width: fit-content;
+  width: 90%;
+  max-width: 500px;
 }
 
 .inputStuff,
