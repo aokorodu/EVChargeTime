@@ -25,7 +25,6 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, stop
         for (let i = 0; i < stopsNotFull; i++) {
             const xpos = (i + 1) * notFullIncrements;
             const ypos = 250 - ((i + 1) * timePerChargeNotFull) * unitsPerMin;
-            console.log('ypos: ', ypos)
             arr.push(<circle cx={xpos} cy={ypos} fill="blue" r={3} />)
         }
 
@@ -38,7 +37,6 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, stop
         for (let i = 0; i < stopsNotFull; i++) {
             const xpos = (i + 1) * fullIncrements;
             const ypos = 250 - ((i + 1) * Math.round(timePerChargeFull)) * unitsPerMin;
-            console.log('ypos: ', ypos)
             arr.push(<circle cx={xpos} cy={ypos} fill="red" r={3} />)
         }
 
