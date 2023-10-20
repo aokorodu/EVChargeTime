@@ -111,14 +111,13 @@ function App() {
       <div className='controls'>
         <div className='chargeLevelControls'>
           <CustomSelector label="Start Charge" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' />
+          <CustomSelector label="100% range:" value={280} valueOptions={[200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400]} callback={setRange} />
         </div>
         <div className='dynamicNumbers'>
 
-          <div className='inputStuff'>100% range: <input value={String(range)} onChange={(e) => {
-            let val = Number(e.target.value);
-            if (val < 1) val = 1
-            setRange(Number(val))
-          }} /></div>
+          <div className='inputStuff'>
+
+          </div>
 
           <div className='inputStuff'>Drive time to charger (min)
             <input value={driveTime} onChange={(e) => { setDriveTime(Number(e.target.value)) }}></input>
