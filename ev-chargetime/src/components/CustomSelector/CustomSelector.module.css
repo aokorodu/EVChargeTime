@@ -1,7 +1,6 @@
 .holder {
   position: relative;
-  width: fit-content;
-  min-width: 200px;
+  flex-grow: 1;
   background-color: white;
   height: 2rem;
   display: flex;

@@ -13,6 +13,12 @@
 .controls {
   padding: 1rem;
   padding: 1rem;
+  width: 100%;
+  max-width: 500px;
+  min-width: 350px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 .chargeLevelControls {
@@ -29,8 +35,7 @@
 .resultNumbers {
   background-color: #eaeaea;
   padding: 1rem;
-  width: 90%;
-  max-width: 500px;
+  width: 100%;
   margin-top: 0.25rem;
   border-radius: var(--borderRadius);
 }
