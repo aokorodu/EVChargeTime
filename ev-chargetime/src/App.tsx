@@ -51,12 +51,12 @@ function App() {
       if (current) sum += current;
     }
 
-    return Math.round(sum)
+    return sum;
   }
 
   const getNumberOfChargingSessions = (endcharge: number): number => {
-    const dist = Math.round((endcharge - startcharge) / 100 * Number(range));
-    const num = Math.ceil(testDistance / dist);
+    const dist = (endcharge - startcharge) / 100 * Number(range);
+    const num = testDistance / dist;
 
     return num;
   }
@@ -64,7 +64,7 @@ function App() {
   const getTotalTimeSpentChargingNumber = (endcharge: number): number => {
     const num = getNumberOfChargingSessions(endcharge);
     const totalTimePer = endcharge == 80 ? totalTimePerNotFull : totalTimePerFull;
-    const totalMinutes = Math.round(num * totalTimePer);
+    const totalMinutes = num * totalTimePer;
 
     return totalMinutes
   }
@@ -78,7 +78,7 @@ function App() {
 
   const getTimeString = (min: number): string => {
     const hours = Math.floor(min / 60);
-    let minutes = String(min % 60);
+    let minutes = String(Math.round(min) % 60);
     if (minutes.length == 1) minutes = `0${minutes}`;
     const str = `${hours}:${minutes}`;
 
@@ -90,9 +90,11 @@ function App() {
       timeNotFull: getTotalTimeSpentChargingNumber(80),
       rangeNotFull: getRange(80),
       stopsNotFull: getNumberOfChargingSessions(80),
+      timePerChargeNotFull: totalTimePerNotFull,
       timeFull: getTotalTimeSpentChargingNumber(100),
       rangeFull: getRange(100),
       stopsFull: getNumberOfChargingSessions(100),
+      timePerChargeFull: totalTimePerFull,
       distance: testDistance
     }
 
@@ -100,7 +102,7 @@ function App() {
   }
 
   const getRange = (charge: number) => {
-    return Math.round((charge - startcharge) / 100 * Number(range))
+    return (charge - startcharge) / 100 * Number(range)
   }
 
 
@@ -112,7 +114,11 @@ function App() {
         </div>
         <div className='dynamicNumbers'>
 
-          <div className='inputStuff'>100% range: <input value={String(range)} onChange={(e) => { setRange(Number(e.target.value)) }} /></div>
+          <div className='inputStuff'>100% range: <input value={String(range)} onChange={(e) => {
+            let val = Number(e.target.value);
+            if (val < 1) val = 1
+            setRange(Number(val))
+          }} /></div>
 
           <div className='inputStuff'>Drive time to charger (min)
             <input value={driveTime} onChange={(e) => { setDriveTime(Number(e.target.value)) }}></input>
@@ -139,14 +145,14 @@ function App() {
             </thead>
             <tr>
               <td>Range between start and end:</td>
-              <td>{getRange(80)}</td>
-              <td>{getRange(100)}</td>
+              <td>{Math.round(getRange(80))}</td>
+              <td>{Math.round(getRange(100))}</td>
             </tr>
 
             <tr>
               <td>Total non-charging time:</td>
-              <td>{getTimeString(driveTime + waitTime)}</td>
-              <td>{getTimeString(driveTime + waitTime)}</td>
+              <td>{getTimeString(Math.round(driveTime + waitTime))}</td>
+              <td>{getTimeString(Math.round(driveTime + waitTime))}</td>
             </tr>
 
             <tr>
@@ -163,8 +169,8 @@ function App() {
 
             <tr>
               <td># of charging stops:</td>
-              <td>{getNumberOfChargingSessions(80)}</td>
-              <td>{getNumberOfChargingSessions(100)}</td>
+              <td>{Math.ceil(getNumberOfChargingSessions(80))}</td>
+              <td>{Math.ceil(getNumberOfChargingSessions(100))}</td>
             </tr>
 
             <tr>

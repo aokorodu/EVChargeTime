@@ -2,12 +2,14 @@ type ChartProps = {
     timeNotFull: number,
     rangeNotFull: number,
     stopsNotFull: number,
+    timePerChargeNotFull: number,
     timeFull: number,
     rangeFull: number,
     stopsFull: number,
+    timePerChargeFull: number,
     distance: number;
 }
-const Chart = ({ timeNotFull, timeFull, stopsNotFull, stopsFull, rangeNotFull, rangeFull, distance }: ChartProps) => {
+const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, stopsFull, rangeNotFull, rangeFull, timePerChargeFull, distance }: ChartProps) => {
 
     const maxTime = timeFull >= timeNotFull ? timeFull : timeNotFull;
     const unitsPerMin = 250 / maxTime;
@@ -22,18 +24,22 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, stopsFull, rangeNotFull, r
         const arr = [];
         for (let i = 0; i < stopsNotFull; i++) {
             const xpos = (i + 1) * notFullIncrements;
-            arr.push(<path d={`M${xpos},250 v-250`} stroke="blue" strokeOpacity={.05} strokeWidth={1} />)
+            const ypos = 250 - ((i + 1) * timePerChargeNotFull) * unitsPerMin;
+            console.log('ypos: ', ypos)
+            arr.push(<circle cx={xpos} cy={ypos} fill="blue" r={3} />)
         }
 
         return arr;
     }
 
-    const getNotLines = () => {
+    const getFullLines = () => {
         const fullIncrements = rangeFull * unitsPerMile;
         const arr = [];
         for (let i = 0; i < stopsNotFull; i++) {
             const xpos = (i + 1) * fullIncrements;
-            arr.push(<path d={`M${xpos},250 v-250`} stroke="red" strokeOpacity={.05} strokeWidth={1} />)
+            const ypos = 250 - ((i + 1) * Math.round(timePerChargeFull)) * unitsPerMin;
+            console.log('ypos: ', ypos)
+            arr.push(<circle cx={xpos} cy={ypos} fill="red" r={3} />)
         }
 
         return arr;
@@ -45,8 +51,9 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, stopsFull, rangeNotFull, r
             <path d="M1,0 L1,249 499,249" fill="none" stroke="black" />
             <path d={`M0,250 L500,${yFull}`} fill="none" stroke="red" />
             <path d={`M0,250 L500,${yNotFull}`} fill="none" stroke="blue" />
+            <circle cx="1" cy="249" r="5" fill="black" />
             {getNotFullLines()}
-            {getNotLines()}
+            {getFullLines()}
         </svg>
     );
 }
