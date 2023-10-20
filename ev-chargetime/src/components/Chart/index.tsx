@@ -26,6 +26,8 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, stop
             const xpos = (i + 1) * notFullIncrements;
             const ypos = 250 - ((i + 1) * timePerChargeNotFull) * unitsPerMin;
             arr.push(<circle cx={xpos} cy={ypos} fill="blue" r={3} />)
+            arr.push(<path d={`M${xpos},250 L${xpos},${ypos}`}
+                stroke="blue" strokeOpacity={.2} />)
         }
 
         return arr;
@@ -38,6 +40,8 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, stop
             const xpos = (i + 1) * fullIncrements;
             const ypos = 250 - ((i + 1) * Math.round(timePerChargeFull)) * unitsPerMin;
             arr.push(<circle cx={xpos} cy={ypos} fill="red" r={3} />)
+            arr.push(<path d={`M${xpos},250 L${xpos},${ypos}`}
+                stroke="red" strokeOpacity={.2} />)
         }
 
         return arr;

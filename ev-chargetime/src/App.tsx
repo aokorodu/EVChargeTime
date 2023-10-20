@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Selector from './components/Selector';
 import CustomSelector from './components/CustomSelector';
 import Chart from './components/Chart';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 
 function App() {
   const chargeCurve = [2.36, 2.07, 2.07, 2.07, 2.53, 2.85, 3.3, 18]
@@ -34,6 +39,7 @@ function App() {
     setTotalTimePerFull(calculateTime(100))
   }
   const changeStart = (e: String) => {
+    console.log('change start to ', e)
     const num = Number(e);
     setStartCharge(num);
   }
@@ -110,7 +116,7 @@ function App() {
     <>
       <div className='controls'>
         <div className='chargeLevelControls'>
-          <CustomSelector label="Start Charge" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' />
+          <CustomSelector label="Start Charge %" value={10} valueOptions={[10, 20, 30, 40, 50]} callback={changeStart} suffix='%' />
           <CustomSelector label="100% range:" value={280} valueOptions={[200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400]} callback={setRange} />
         </div>
         <div className='dynamicNumbers'>

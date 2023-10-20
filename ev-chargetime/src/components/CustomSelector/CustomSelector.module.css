@@ -1,24 +1,4 @@
-.holder {
+.container {
   position: relative;
   flex-grow: 1;
-  background-color: white;
-  height: 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 0.5rem 1rem;
-}
-
-.dropdownHolder {
-  position: absolute;
-  width: 100%;
-  z-index: 100;
-  top: 2.5rem;
-  left: 0rem;
-  border: 1px solid black;
-  border-radius: 10px;
-  overflow: hidden;
 }

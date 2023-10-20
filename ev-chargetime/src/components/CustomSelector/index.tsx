@@ -1,6 +1,11 @@
 import { useState } from "react";
-import CustomSelectorButton from "./CustomSelectorButton";
-import styles from "./CustomSelector.module.css";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import styles from './CustomSelector.module.css';
 
 type SelectorProps = {
     label?: string,
@@ -11,27 +16,33 @@ type SelectorProps = {
 }
 
 const CustomSelector = ({ label, value, valueOptions, callback, suffix }: SelectorProps) => {
-    const [chosenValue, setChosenValue] = useState(value);
-    const [open, toggleOpen] = useState(false);
-
-    const selectValue = (newValue: number) => {
-        setChosenValue(newValue);
-        toggleOpen(!open);
-        callback(newValue)
+    const [selectedValue, setSelectedValue] = React.useState(0);
+    const func = (e: any) => {
+        setSelectedValue(e.target.value)
+        callback(e.target.value)
     }
-
+    React.useEffect(() => {
+        setSelectedValue(value)
+    }, [])
     return (
         <>
-            <div className={styles.holder} onClick={() => { toggleOpen(!open) }}>
-                <div>{label}</div>
-
-                <div  >{chosenValue}{suffix}</div>
-                {open &&
-                    <div className={styles.dropdownHolder} onBlur={() => { console.log('blur') }}>
+            <div className={styles.container}>
+                <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">{label}</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={selectedValue}
+                        label={label}
+                        onChange={func}
+                    >
                         {valueOptions.map((val) => {
-                            return (<CustomSelectorButton value={val} onClick={selectValue} selected={val === chosenValue ? true : false} suffix={suffix} />)
+                            return (
+                                <MenuItem value={val}>{val}</MenuItem>
+                            )
                         })}
-                    </div>}
+                    </Select>
+                </FormControl>
             </div>
         </>);
 }
