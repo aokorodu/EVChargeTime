@@ -127,7 +127,6 @@ function App() {
     return arr;
   }
 
-
   return (
     <>
       <div className='controls'>
