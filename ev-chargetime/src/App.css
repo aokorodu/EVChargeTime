@@ -37,8 +37,6 @@
 
 .dynamicNumbers,
 .resultNumbers {
-  background-color: #eaeaea;
-  padding: 1rem;
   width: 100%;
   margin-top: 0.25rem;
   border-radius: var(--borderRadius);
@@ -49,7 +47,7 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
   justify-content: space-between;
 }
 
@@ -95,12 +93,28 @@ th {
 td:first-child {
   width: 300px;
   text-align: left;
+  padding: 10px;
 }
 td {
   text-align: right;
+  padding: 5px;
+}
+tr {
+  line-height: 1.4rem;
 }
 
-tr:last-child {
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #eaeaea;
+}
+
+tbody tr:last-child {
   font-size: 1.25rem;
   font-weight: 600;
+  background-color: #2a2929;
+  color: white;
+  height: 2rem;
 }

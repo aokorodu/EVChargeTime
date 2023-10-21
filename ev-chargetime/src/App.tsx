@@ -7,7 +7,12 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function App() {
   const chargeCurve = [2.36, 2.07, 2.07, 2.07, 2.53, 2.85, 3.3, 18]
@@ -44,7 +49,7 @@ function App() {
     setStartCharge(num);
   }
 
-  const waitEnd = (e: String) => {
+  const waitEnd = (e: Number) => {
     setWaitTime(Number(e))
   }
 
@@ -125,15 +130,44 @@ function App() {
 
           </div>
 
-          <div className='inputStuff'>Drive time to charger (min)
-            <input value={driveTime} onChange={(e) => { setDriveTime(Number(e.target.value)) }}></input>
+          <div className='inputStuff'>
+            <TextField fullWidth id="outlined-basic" label="Drive time to charger" variant="outlined"
+              value={driveTime} InputProps={{
+                endAdornment: <InputAdornment position="end">minutes</InputAdornment>,
+              }}
+              onChange={(e) => { setDriveTime(Number(e.target.value)) }} />
           </div>
 
-          <div className='inputStuff'>Wait time to charge (min)
-            <Selector value={0} valueOptions={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60]} callback={waitEnd} />
+          <div className='inputStuff'>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Average Wait time</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={waitTime}
+                label="Average Wait time"
+                onChange={(e) => { waitEnd(Number(e.target.value)) }}
+              >
+                <MenuItem value={0}>0</MenuItem>
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={20}>20</MenuItem>
+                <MenuItem value={30}>30</MenuItem>
+                <MenuItem value={40}>40</MenuItem>
+                <MenuItem value={50}>50</MenuItem>
+                <MenuItem value={60}>60</MenuItem>
+              </Select>
+            </FormControl>
           </div>
-          <div className='inputStuff'>Test Distance
-            <input value={testDistance} onChange={(e) => { setTestDistance(Number(e.target.value)) }}></input></div>
+
+
+
+          <div className='inputStuff'>
+            {/* Test Distance
+            <input value={testDistance} onChange={(e) => { setTestDistance(Number(e.target.value)) }}></input> */}
+            <TextField fullWidth id="outlined-basic" label="Test Distance" variant="outlined"
+              value={testDistance}
+              onChange={(e) => { setTestDistance(Number(e.target.value)) }} />
+          </div>
 
         </div>
 
@@ -148,42 +182,43 @@ function App() {
                 <th>100%</th>
               </tr>
             </thead>
-            <tr>
-              <td>Range between start and end:</td>
-              <td>{Math.round(getRange(80))}</td>
-              <td>{Math.round(getRange(100))}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>Range between start and end:</td>
+                <td>{Math.round(getRange(80))}</td>
+                <td>{Math.round(getRange(100))}</td>
+              </tr>
 
-            <tr>
-              <td>Total non-charging time:</td>
-              <td>{getTimeString(Math.round(driveTime + waitTime))}</td>
-              <td>{getTimeString(Math.round(driveTime + waitTime))}</td>
-            </tr>
+              <tr>
+                <td>Total non-charging time:</td>
+                <td>{getTimeString(Math.round(driveTime + waitTime))}</td>
+                <td>{getTimeString(Math.round(driveTime + waitTime))}</td>
+              </tr>
 
-            <tr>
-              <td>Total charging time: </td>
-              <td>{getTimeString(getChargingTime(startcharge, 80))}</td>
-              <td>{getTimeString(getChargingTime(startcharge, 100))}</td>
-            </tr>
+              <tr>
+                <td>Total charging time: </td>
+                <td>{getTimeString(getChargingTime(startcharge, 80))}</td>
+                <td>{getTimeString(getChargingTime(startcharge, 100))}</td>
+              </tr>
 
-            <tr>
-              <td>Total time per charge: </td>
-              <td>{getTimeString(totalTimePerNotFull)}</td>
-              <td>{getTimeString(totalTimePerFull)}</td>
-            </tr>
+              <tr>
+                <td>Total time per charge: </td>
+                <td>{getTimeString(totalTimePerNotFull)}</td>
+                <td>{getTimeString(totalTimePerFull)}</td>
+              </tr>
 
-            <tr>
-              <td># of charging stops:</td>
-              <td>{Math.ceil(getNumberOfChargingSessions(80))}</td>
-              <td>{Math.ceil(getNumberOfChargingSessions(100))}</td>
-            </tr>
+              <tr>
+                <td># of charging stops:</td>
+                <td>{Math.ceil(getNumberOfChargingSessions(80))}</td>
+                <td>{Math.ceil(getNumberOfChargingSessions(100))}</td>
+              </tr>
 
-            <tr>
-              <td>Total time spent charging</td>
-              <td>{getTotalTimeSpentCharging(80)}</td>
-              <td>{getTotalTimeSpentCharging(100)}</td>
-            </tr>
-
+              <tr>
+                <td>Total time spent charging</td>
+                <td>{getTotalTimeSpentCharging(80)}</td>
+                <td>{getTotalTimeSpentCharging(100)}</td>
+              </tr>
+            </tbody>
           </table>
           {/* <div className='dataStuff'>
             <div>Range between start and end:</div>
@@ -221,7 +256,7 @@ function App() {
         <div className='chartHolder'>
           <Chart {...getChartData()} />
         </div>
-      </div>
+      </div >
 
 
 
