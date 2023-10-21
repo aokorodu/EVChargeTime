@@ -49,11 +49,11 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, stop
 
     return (
         <svg viewBox="0 0 500 250">
-            <rect x="0" y="0" width="500" height="250" fill="#eaeaea" />
-            <path d="M1,0 L1,249 499,249" fill="none" stroke="black" />
+            <rect x="0" y="0" width="499" height="249" fill="#fafafa" />
             <path d={`M0,250 L500,${yFull}`} fill="none" stroke="red" />
             <path d={`M0,250 L500,${yNotFull}`} fill="none" stroke="blue" />
-            <circle cx="1" cy="249" r="5" fill="black" />
+            <path d="M0,249 H500" stroke="#c6c6c6" strokeWidth={4} />
+            <circle cx="0" cy="250" r="5" fill="black" />
             {getNotFullLines()}
             {getFullLines()}
             <g>
