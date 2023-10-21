@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "EV Charging",
+  "name": "Ioniq 5/6 - GV60 - EV6 Charging data",
   "icons": [
     {
       "src": "favicon.ico",
