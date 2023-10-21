@@ -56,6 +56,15 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, stop
             <circle cx="1" cy="249" r="5" fill="black" />
             {getNotFullLines()}
             {getFullLines()}
+            <g>
+                <line x1="30" y1="39.5" x2="84" y2="39.5" stroke="#F70B0B" strokeWidth="3" />
+                <line x1="30" y1="60.5" x2="84" y2="60.5" stroke="#1E0BF7" strokeWidth="3" />
+                <text fill="black" font-size="11" letter-spacing="-0.015em"><tspan x="89" y="40.685">100%</tspan></text>
+                <text fill="black" font-size="11" letter-spacing="-0.015em"><tspan x="91" y="61.685">80%</tspan></text>
+                <text fill="black" font-size="11" letter-spacing="-0.015em"><tspan x="91" y="82.685">charging stop</tspan></text>
+                <line x1="30" y1="81.5" x2="84" y2="81.5" stroke="black" strokeWidth="3" />
+                <circle cx="57" cy="82" r="5" fill="black" />
+            </g>
         </svg>
     );
 }

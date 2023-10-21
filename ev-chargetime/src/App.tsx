@@ -116,6 +116,17 @@ function App() {
     return (charge - startcharge) / 100 * Number(range)
   }
 
+  const getTimeMenuItems = () => {
+    const num = 13;
+    const arr = [];
+    for (let i = 0; i < num; i++) {
+      const val = i * 5;
+      arr.push(<MenuItem value={val}>{val}</MenuItem>)
+    }
+
+    return arr;
+  }
+
 
   return (
     <>
@@ -148,13 +159,14 @@ function App() {
                 label="Average Wait time"
                 onChange={(e) => { waitEnd(Number(e.target.value)) }}
               >
-                <MenuItem value={0}>0</MenuItem>
+                {/* <MenuItem value={0}>0</MenuItem>
                 <MenuItem value={10}>10</MenuItem>
                 <MenuItem value={20}>20</MenuItem>
                 <MenuItem value={30}>30</MenuItem>
                 <MenuItem value={40}>40</MenuItem>
                 <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={60}>60</MenuItem>
+                <MenuItem value={60}>60</MenuItem> */}
+                {getTimeMenuItems()}
               </Select>
             </FormControl>
           </div>
