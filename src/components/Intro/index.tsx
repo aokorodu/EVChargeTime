@@ -1,7 +1,10 @@
 import styles from './Intro.module.css';
 import Button from '@mui/material/Button';
 
-const Intro = () => {
+type IntroProps = {
+    callback: Function
+}
+const Intro = ({ callback }: IntroProps) => {
     return (
         <>
             <div className={styles.holder}>
@@ -31,15 +34,17 @@ const Intro = () => {
                         <div>At some point I’d like to include an option for charging speed.</div>
                     </section>
                     <div className={styles.buttonHolder}>
-                        <Button variant="contained" size="large" disableElevation sx={{
-                            background: "#000000",
-                            color: "white",
-                            border: "1px solid black",
-                            "&:hover": {
-                                background: "white",
-                                color: "black"
-                            }
-                        }}>
+                        <Button variant="contained" size="large"
+                            onClick={() => { callback() }} disableElevation sx={{
+                                background: "#000000",
+                                color: "white",
+                                border: "1px solid black",
+                                "&:hover": {
+                                    background: "white",
+                                    color: "black"
+                                }
+
+                            }}>
                             BEGIN
                         </Button>
                     </div>
