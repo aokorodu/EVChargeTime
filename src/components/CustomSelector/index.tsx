@@ -16,7 +16,7 @@ type SelectorProps = {
 }
 
 const CustomSelector = ({ label, value, valueOptions, callback, suffix }: SelectorProps) => {
-    const [selectedValue, setSelectedValue] = React.useState(0);
+    const [selectedValue, setSelectedValue] = React.useState(value);
     const func = (e: any) => {
         setSelectedValue(e.target.value)
         callback(e.target.value)

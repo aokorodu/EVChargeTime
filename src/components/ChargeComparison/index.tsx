@@ -120,7 +120,7 @@ function ChargeComparison() {
         const arr = [];
         for (let i = 0; i < num; i++) {
             const val = i * 5;
-            arr.push(<MenuItem value={val}>{val}</MenuItem>)
+            arr.push(<MenuItem key={val} value={val}>{val}</MenuItem>)
         }
 
         return arr;

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 type ChartProps = {
     timeNotFull: number,
     rangeNotFull: number,
@@ -10,6 +12,11 @@ type ChartProps = {
 }
 const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rangeNotFull, rangeFull, timePerChargeFull, distance }: ChartProps) => {
 
+    useEffect(() => {
+        setLoaded(true)
+    }, []);
+
+    const [loaded, setLoaded] = useState(false);
     const maxTime = timeFull >= timeNotFull ? timeFull : timeNotFull;
     const unitsPerMin = 250 / maxTime;
     const yNotFull = 250 - timeNotFull * unitsPerMin;
@@ -24,8 +31,8 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
         for (let i = 0; i < stopsNotFull; i++) {
             const xpos = (i + 1) * notFullIncrements;
             const ypos = 250 - ((i + 1) * timePerChargeNotFull) * unitsPerMin;
-            arr.push(<circle cx={xpos} cy={ypos} fill="blue" r={3} />)
-            arr.push(<path d={`M${xpos},250 L${xpos},${ypos}`}
+            arr.push(<circle key={`${i}_circle_nofull`} cx={xpos} cy={ypos} fill="blue" r={3} />)
+            arr.push(<path key={`${i}_path_nofull`} d={`M${xpos},250 L${xpos},${ypos}`}
                 stroke="blue" strokeOpacity={.2} />)
         }
 
@@ -38,8 +45,8 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
         for (let i = 0; i < stopsNotFull; i++) {
             const xpos = (i + 1) * fullIncrements;
             const ypos = 250 - ((i + 1) * Math.round(timePerChargeFull)) * unitsPerMin;
-            arr.push(<circle cx={xpos} cy={ypos} fill="red" r={3} />)
-            arr.push(<path d={`M${xpos},250 L${xpos},${ypos}`}
+            arr.push(<circle key={`${i}_circle_full`} cx={xpos} cy={ypos} fill="red" r={3} />)
+            arr.push(<path key={`${i}_path_full`} d={`M${xpos},250 L${xpos},${ypos}`}
                 stroke="red" strokeOpacity={.2} />)
         }
 
@@ -59,9 +66,9 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
                 <g>
                     <line x1="30" y1="39.5" x2="84" y2="39.5" stroke="#F70B0B" strokeWidth="3" />
                     <line x1="30" y1="60.5" x2="84" y2="60.5" stroke="#1E0BF7" strokeWidth="3" />
-                    <text fill="black" font-size="11" letter-spacing="-0.015em"><tspan x="89" y="40.685">100%</tspan></text>
-                    <text fill="black" font-size="11" letter-spacing="-0.015em"><tspan x="91" y="61.685">80%</tspan></text>
-                    <text fill="black" font-size="11" letter-spacing="-0.015em"><tspan x="91" y="82.685">charging stop</tspan></text>
+                    <text fill="black" fontSize="11" letterSpacing="-0.015em"><tspan x="89" y="40.685">100%</tspan></text>
+                    <text fill="black" fontSize="11" letterSpacing="-0.015em"><tspan x="91" y="61.685">80%</tspan></text>
+                    <text fill="black" fontSize="11" letterSpacing="-0.015em"><tspan x="91" y="82.685">charging stop</tspan></text>
                     <line x1="30" y1="81.5" x2="84" y2="81.5" stroke="black" strokeWidth="3" />
                     <circle cx="57" cy="82" r="5" fill="black" />
                 </g>
@@ -71,7 +78,7 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
 
     return (
         <>
-            {drawChart()}
+            {loaded && drawChart()}
         </>
     );
 }
