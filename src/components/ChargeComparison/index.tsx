@@ -157,13 +157,6 @@ function ChargeComparison() {
                                 label="Average Wait time"
                                 onChange={(e) => { waitEnd(Number(e.target.value)) }}
                             >
-                                {/* <MenuItem value={0}>0</MenuItem>
-                <MenuItem value={10}>10</MenuItem>
-                <MenuItem value={20}>20</MenuItem>
-                <MenuItem value={30}>30</MenuItem>
-                <MenuItem value={40}>40</MenuItem>
-                <MenuItem value={50}>50</MenuItem>
-                <MenuItem value={60}>60</MenuItem> */}
                                 {getTimeMenuItems()}
                             </Select>
                         </FormControl>

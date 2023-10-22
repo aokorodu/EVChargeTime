@@ -38,7 +38,7 @@ const CustomSelector = ({ label, value, valueOptions, callback, suffix }: Select
                     >
                         {valueOptions.map((val) => {
                             return (
-                                <MenuItem value={val}>{val}</MenuItem>
+                                <MenuItem key={val} value={val}>{val}</MenuItem>
                             )
                         })}
                     </Select>
