@@ -55,7 +55,7 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
 
     const drawChart = () => {
         return (
-            <svg viewBox="0 0 500 250">
+            <svg viewBox="0 0 500 290">
                 <rect x="0" y="0" width="499" height="249" fill="#fafafa" />
                 <path d={`M0,250 L500,${yFull}`} fill="none" stroke="red" />
                 <path d={`M0,250 L500,${yNotFull}`} fill="none" stroke="blue" />
@@ -63,7 +63,7 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
                 <circle cx="0" cy="250" r="5" fill="black" />
                 {getNotFullLines()}
                 {getFullLines()}
-                <g>
+                <g transform="translate(25, 0)">
                     <line x1="30" y1="39.5" x2="84" y2="39.5" stroke="#F70B0B" strokeWidth="3" />
                     <line x1="30" y1="60.5" x2="84" y2="60.5" stroke="#1E0BF7" strokeWidth="3" />
                     <text fill="black" fontSize="11" letterSpacing="-0.015em"><tspan x="89" y="40.685">100%</tspan></text>
@@ -72,6 +72,8 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
                     <line x1="30" y1="81.5" x2="84" y2="81.5" stroke="black" strokeWidth="3" />
                     <circle cx="57" cy="82" r="5" fill="black" />
                 </g>
+                <text x="250" y="255" fill="black" textAnchor={"middle"} dominantBaseline={"hanging"} letter-spacing="2">DISTANCE</text>
+                <text x="5" y="125" fill="black" textAnchor={"middle"} dominantBaseline={"auto"} transform="rotate(90 5 125)" letter-spacing="2">TIME</text>
             </svg>
         )
     }
