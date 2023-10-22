@@ -47,7 +47,6 @@ const Chart = ({ timeNotFull, timeFull, stopsNotFull, timePerChargeNotFull, rang
     }
 
     const drawChart = () => {
-        if (!yFull) return <div></div>
         return (
             <svg viewBox="0 0 500 250">
                 <rect x="0" y="0" width="499" height="249" fill="#fafafa" />
