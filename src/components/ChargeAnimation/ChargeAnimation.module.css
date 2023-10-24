@@ -1,0 +1,17 @@
+.progressBackground {
+  transform: translateX(0);
+  animation-name: slide;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-direction: reverse;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(50px);
+  }
+}

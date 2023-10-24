@@ -32,3 +32,17 @@ section {
   flex-direction: row;
   justify-content: flex-start;
 }
+
+.note {
+  font-style: italic;
+  font-size: 0.8rem;
+  margin-left: 1rem;
+}
+
+.note::before {
+  content: "* ";
+}
+
+.animationHolder {
+  margin-bottom: 2rem;
+}
