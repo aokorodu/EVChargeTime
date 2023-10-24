@@ -1,5 +1,6 @@
 import styles from './Intro.module.css';
 import Button from '@mui/material/Button';
+import ChargeAnimation from '../ChargeAnimation';
 
 type IntroProps = {
     callback: Function
@@ -9,11 +10,13 @@ const Intro = ({ callback }: IntroProps) => {
         <>
             <div className={styles.holder}>
                 <div className={styles.container}>
+                    {/* <div className={styles.animationHolder}><ChargeAnimation /></div> */}
+
                     <header>
                         <div className={styles.mainTitle}>80 or 100?</div>
                     </header>
                     <section>
-                        <h1>What is the best strategy for EGMP vehicles: charging to 80%, or 100%?</h1>
+                        <h1>Question: In the long run, what saves the most time: charging to 80%, or 100%?*</h1>
                         <div>
                             <strong>Disclaimer:</strong>
                             <div>This is not meant to be a scientifically accurate study on charging!  I don’t have access to the official charging curves for EGMP cars, and the results are based on charging curve estimates cobbled together from several different sources. For entertainment purposes only!</div>
@@ -31,7 +34,7 @@ const Intro = ({ callback }: IntroProps) => {
                     </section>
 
                     <section>
-                        <div>At some point I’d like to include an option for charging speed.</div>
+                        <div className={styles.note}>This analysis is for E-GMP vehicles (Kia EV6, Hyundai Ioniq 5/6, Genesis GV60) only.</div>
                     </section>
                     <div className={styles.buttonHolder}>
                         <Button variant="contained" size="large"
