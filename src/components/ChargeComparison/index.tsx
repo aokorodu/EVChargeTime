@@ -174,7 +174,7 @@ function ChargeComparison() {
                     <table>
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Charge Level</th>
                                 <th>80%</th>
                                 <th>100%</th>
                             </tr>

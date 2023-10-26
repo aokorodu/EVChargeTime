@@ -1,21 +1,48 @@
 import styles from './Intro.module.css';
 import Button from '@mui/material/Button';
-import ChargeAnimation from '../ChargeAnimation';
+import { easeOut, motion } from 'framer-motion';
 
 type IntroProps = {
     callback: Function
 }
 const Intro = ({ callback }: IntroProps) => {
+    const slideDistance = 20;
+    const animationDuration = 1;
+    const del = .25;
     return (
         <>
             <div className={styles.holder}>
                 <div className={styles.container}>
-                    {/* <div className={styles.animationHolder}><ChargeAnimation /></div> */}
-
-                    <header>
+                    <motion.header
+                        initial={{
+                            opacity: 0,
+                            x: -slideDistance
+                        }}
+                        animate={{
+                            opacity: 1,
+                            x: 0
+                        }}
+                        transition={{
+                            duration: animationDuration,
+                            delay: del,
+                            ease: easeOut
+                        }}
+                    >
                         <div className={styles.mainTitle}>80 or 100?</div>
-                    </header>
-                    <section>
+                    </motion.header>
+                    <motion.section
+                        initial={{
+                            opacity: 0,
+                            x: -slideDistance
+                        }}
+                        animate={{
+                            opacity: 1,
+                            x: 0
+                        }}
+                        transition={{
+                            duration: animationDuration,
+                            delay: 2 * del
+                        }}>
                         <h1>Over the long run, what saves the most time? Charging less often, but to 100%, or charging more often, but only to 80%? *</h1>
                         <div>
                             <strong>GOAL:</strong>
@@ -26,9 +53,22 @@ const Intro = ({ callback }: IntroProps) => {
                             <p>This is not meant to be a scientifically accurate study!  I don’t have access to official charging curves for EGMP cars, and the results are based entirely on estimates cobbled together from several different sources. <strong>For entertainment purposes only!</strong></p>
                             <p>In addition, this app doesn't consider the long-term effect of various charging strategies on battery health. Nor will it look at the ethical/moral question of charging to 100% when people are waiting. It only looks at one thing: <strong>TIME</strong></p>
                         </div>
-                    </section>
+                    </motion.section>
 
-                    <section>
+                    <motion.section
+                        initial={{
+                            opacity: 0,
+                            x: -slideDistance
+
+                        }}
+                        animate={{
+                            opacity: 1,
+                            x: 0
+                        }}
+                        transition={{
+                            duration: animationDuration,
+                            delay: 3 * del
+                        }}>
                         <strong>ASSUMPTIONS:</strong>
                         <p>This app makes the following highly unrealistic assumptions:</p>
                         <ol>
@@ -36,12 +76,25 @@ const Intro = ({ callback }: IntroProps) => {
                             <li>Charging occurs at the same speed, every time.</li>
                             <li>Charging begins and ends at the same start and end charge percentage every time.</li>
                         </ol>
-                    </section>
-
-                    <section>
                         <div className={styles.note}>This analysis is for E-GMP vehicles (Kia EV6, Hyundai Ioniq 5/6, Genesis GV60) only.</div>
-                    </section>
-                    <div className={styles.buttonHolder}>
+                    </motion.section>
+
+
+                    <motion.div
+                        className={styles.buttonHolder}
+                        initial={{
+                            opacity: 0,
+                            x: -slideDistance
+
+                        }}
+                        animate={{
+                            opacity: 1,
+                            x: 0
+                        }}
+                        transition={{
+                            duration: animationDuration,
+                            delay: 4 * del
+                        }}>
                         <Button variant="contained" size="large"
                             onClick={() => { callback() }} disableElevation sx={{
                                 background: "#000000",
@@ -55,7 +108,7 @@ const Intro = ({ callback }: IntroProps) => {
                             }}>
                             BEGIN
                         </Button>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </>

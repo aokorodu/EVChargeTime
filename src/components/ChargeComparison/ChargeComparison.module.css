@@ -87,9 +87,15 @@ table {
   width: 100%;
 }
 th {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid black;
   text-align: right;
 }
+
+th:first-child {
+  padding-left: 10px;
+  text-align: left;
+}
+
 td:first-child {
   width: 300px;
   text-align: left;
